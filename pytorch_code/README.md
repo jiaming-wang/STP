@@ -2,7 +2,7 @@
 
 ## Introduction
 This repo contains several models for video action recognition,
-including C3D, R2Plus1D, R3D, P3D, and I3D.
+including [C3D](http://arxiv.org/pdf/1412.0767), [R2Plus1D](https://arxiv.org/abs/1711.11248v1), [R3D](https://arxiv.org/pdf/1703.07814.pdf), [P3D](http://openaccess.thecvf.com/content_ICCV_2017/papers/Qiu_Learning_Spatio-Temporal_Representation_ICCV_2017_paper.pdf), and [I3D](https://arxiv.org/abs/1705.07750).
 
 ## Dependencies
 
@@ -11,7 +11,7 @@ including C3D, R2Plus1D, R3D, P3D, and I3D.
 - NVIDIA GPU
 - Python packages: `pip install numpy opencv-python tensorboardX` 
 
-## Trainging
+## Training
 
    To train the model, please do:
    
