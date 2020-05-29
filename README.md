@@ -26,7 +26,7 @@ Table 2. Comparison with existing methods on *Ferryboat-4*.
 
 Image 2. Training accuracy for different methods. (A) The results on RGB-*Ferryboat-4*. (B) The results on flow-*Ferryboat-4*.
 
-Table 1. Summary of characteristics of the *Ferryboat-4*. 
+Table 1. Comparison with existing methods on *Ferryboat-4*. 
 ||C3D|R2+1D|R3D|I3D|P3D|STP|
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 |Flow | 49.49 |49.48| 56.32| 58.71| 50.64| 65.44|
