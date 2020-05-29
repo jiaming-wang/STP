@@ -2,7 +2,7 @@
 
 ## Introduction
 This repo contains several models for video action recognition,
-including C3D, R2Plus1D, R3D, P3D, and I3D inplemented using PyTorch (0.4.0).
+including C3D, R2Plus1D, R3D, P3D, and I3D.
 
 ## Dependencies
 
@@ -13,10 +13,19 @@ including C3D, R2Plus1D, R3D, P3D, and I3D inplemented using PyTorch (0.4.0).
 
 ## Trainging
 
-    To train the model, please do:
-    ```Shell
+   To train the model, please do:
+   
+     ```python
     python train.py
-    ```
-    
+    ```  
+
+
+## Testing
+   To test by a model:
+   
+    ```python
+    python inference.py
+    ```  
+
 ## Reference
 The code is based on [source code](https://github.com/jfzhang95/pytorch-video-recognition)
