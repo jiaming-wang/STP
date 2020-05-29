@@ -15,17 +15,15 @@ including C3D, R2Plus1D, R3D, P3D, and I3D.
 
    To train the model, please do:
    
-     ```python
     python train.py
-    ```  
 
 
 ## Testing
    To test by a model:
    
-    ```python
     python inference.py
-    ```  
+
+
 
 ## Reference
 The code is based on [source code](https://github.com/jfzhang95/pytorch-video-recognition)
