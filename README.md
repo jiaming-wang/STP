@@ -29,6 +29,6 @@ Image 2. Training accuracy for different methods. (A) The results on RGB-*Ferryb
 Table 1. Comparison with existing methods on *Ferryboat-4*. 
 ||C3D|R2+1D|R3D|I3D|P3D|STP|
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-|Flow | 49.49 |49.48| 56.32| 58.71| 50.64| 65.44|
-|RGB | 61.64 |63.62| 62.04| 63.81| 62.68| 66.91|
+|Flow | 49.49 |49.48| 56.32| 58.71| 62.68| 65.44|
+|RGB | 61.64 |63.62| 62.04| 63.81| 50.64| 66.91|
 |Two-stream | 65.05 |63.87| 62.19| 66.05| 64.23| 67.75|
