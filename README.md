@@ -39,8 +39,7 @@ Table 1. Comparison with existing methods on *Ferryboat-4*.
 |RGB | 61.64 |63.62| 62.04| 63.81| 50.64| 66.91|
 |Two-stream | 65.05 |63.87| 62.19| 66.05| 64.23| 67.75|
 
-----------
-Results on UCF101 and HMDB51 is based on [source code](https://github.com/MichiganCOG/ViP)
+
 ----------
 
 If you find this work useful, please consider citing it.

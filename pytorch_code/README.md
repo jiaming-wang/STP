@@ -24,6 +24,19 @@ including [C3D](http://arxiv.org/pdf/1412.0767), [R2Plus1D](https://arxiv.org/ab
     python inference.py
 
 
-
 ## Reference
-The code is based on [source code](https://github.com/jfzhang95/pytorch-video-recognition)
+- The code is based on [source code](https://github.com/jfzhang95/pytorch-video-recognition).
+- Results on UCF101 and HMDB51 is based on [source code](https://github.com/MichiganCOG/ViP).
+
+----------
+
+If you find this work useful, please consider citing it.
+```
+@article{wang2021stp, 
+  title={Spatial-temporal Pooling for Action Recognition in Videos}, 
+  author={Jiaming Wang, Zhenfeng Shao, Xiao Huang, Tao Lu, Ruiqian Zhang and Xianwei Lv},
+  journal={NEUROCOMPUTING}, 
+  year={2021},
+  publisher={Elsevier}
+}
+```
