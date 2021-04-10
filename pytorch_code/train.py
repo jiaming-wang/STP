@@ -13,7 +13,7 @@ from torch.utils.data import DataLoader
 from torch.autograd import Variable
 
 from dataloaders.dataset import VideoDataset
-from network import C3D_model, R2Plus1D_model, R3D_model, p3d_model, I3D_model, T3D_model
+from network import C3D_model, R2Plus1D_model, R3D_model, p3d_model, I3D_model, T3D_model, STP_model
 
 # Use GPU if available else revert to CPU
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -24,7 +24,7 @@ useTest = True # See evolution of the test set when training
 nTestInterval = 10 # Run on test set every nTestInterval epochs
 snapshot = 20 # Store a model every snapshot epochs
 lr = 1e-3 # Learning rate
-modelName = 'I3D' # Options: C3D or R2Plus1D or R3D or P3D or T3D
+modelName = 'STP' # Options: C3D or R2Plus1D or R3D or P3D or T3D
 dataset = 'ucf50' # Options: hmdb51 or ucf101
 num_classes = 3
 # if dataset == 'hmdb51':
@@ -77,8 +77,10 @@ def train_model(dataset=dataset, save_dir=save_dir, num_classes=num_classes, lr=
     elif modelName == 'T3D':
         model = T3D_model.inception_v1(num_classes=num_classes)
         train_params = model.parameters()
+    elif modelName == 'STP':
+        model = STP_model.STP(num_classes=num_classes, in_channels=3)
+        train_params = model.parameters()   
     else:
-        print('We only implemented C3D and R2Plus1D models.')
         raise NotImplementedError
     criterion = nn.CrossEntropyLoss()  # standard crossentropy loss for classification
     optimizer = optim.SGD(train_params, lr=lr, momentum=0.9, weight_decay=5e-4)
@@ -138,8 +140,11 @@ def train_model(dataset=dataset, save_dir=save_dir, num_classes=num_classes, lr=
                 optimizer.zero_grad()
                 # print(labels.shape)
                 if phase == 'train':
-                    import torch.nn.parallel
-                    outputs = nn.parallel.data_parallel(model, inputs,range(2))
+                    if not modelName== 'STP':
+                        import torch.nn.parallel
+                        outputs = nn.parallel.data_parallel(model, inputs,range(2))
+                    else:
+                        outputs, index = nn.parallel.data_parallel(model, inputs, range(2))
                     # outputs = model(inputs)
                 else:
                     with torch.no_grad():
@@ -149,11 +154,13 @@ def train_model(dataset=dataset, save_dir=save_dir, num_classes=num_classes, lr=
                 preds = torch.max(probs, 1)[1]
                 if  modelName == 'I3D':
                     labels = labels.reshape(labels.shape[0], 1)
-                    # print(outputs.shape)
-                    # print(labels.shape)
                     loss = criterion(outputs, labels)
                 else:
                     loss = criterion(outputs, labels)
+                
+                if modelName == 'STP':
+                    sp_loss = -torch.log(torch.sum(index[:,:,0:int(index.size(2)/2),:,:])/int(index.size(2))) + torch.log(1-torch.sum(index[:,:,int(index.size(2)/2)+1:,:,:])//int(index.size(2))) 
+                    loss = loss + sp_loss
 
                 if phase == 'train':
                     loss.backward()
@@ -201,8 +208,6 @@ def train_model(dataset=dataset, save_dir=save_dir, num_classes=num_classes, lr=
                 preds = torch.max(probs, 1)[1]
                 if  modelName == 'I3D':
                     labels = labels.reshape(labels.shape[0], 1)
-                    # print(outputs.shape)
-                    # print(labels.shape)
                     loss = criterion(outputs, labels)
                 else:
                     loss = criterion(outputs, labels)

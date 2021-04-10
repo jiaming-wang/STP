@@ -1,9 +1,15 @@
-#  STP (Updating)
+<!--
+ * @Author: wjm
+ * @Date: 2020-07-03 21:55:16
+ * @LastEditTime: 2021-04-10 22:56:07
+ * @Description: file content
+-->
+#  STP
 Spatial-temporal Pooling for Action Recognition in Videos
 
-### *Ferryboat-4*
+### *Ferryboat-4 *
 
-The *Ferryboat-4* includes 4 action classes: *Inshore*, *Offshore*, *Traffic*, and *Negative*. 
+The *Ferryboat-4* includes 4 action classes: *Inshore*, *Offshore*, *Traffic*, and *Negative* ([Baidu](https://pan.baidu.com/s/1p3cWGB-CrpExpdbMGxPs2g)|password:g55b|). 
 
 ----------
 ![image](/img/ferryboat.jpg)
@@ -32,3 +38,15 @@ Table 1. Comparison with existing methods on *Ferryboat-4*.
 |Flow | 49.49 |49.48| 56.32| 58.71| 62.68| 65.44|
 |RGB | 61.64 |63.62| 62.04| 63.81| 50.64| 66.91|
 |Two-stream | 65.05 |63.87| 62.19| 66.05| 64.23| 67.75|
+
+
+If you find this work useful, please consider citing it.
+```
+@article{wang2021stp, 
+  title={Spatial-temporal Pooling for Action Recognition in Videos}, 
+  author={Jiaming Wang, Zhenfeng Shao, Xiao Huang, Tao Lu, Ruiqian Zhang and Xianwei Lv},
+  journal={NEUROCOMPUTING}, 
+  year={2021},
+  publisher={Elsevier}
+}
+```

@@ -9,7 +9,7 @@
 
 import torch
 import numpy as np
-from network import C3D_model, R2Plus1D_model,R3D_model, p3d_model, I3D_model
+from network import C3D_model, R2Plus1D_model,R3D_model, p3d_model, I3D_model, STP_model
 import cv2
 import os
 torch.backends.cudnn.benchmark = True
@@ -39,7 +39,7 @@ def main():
         f.close()
     # init model
     num_classes = 4
-    modelName = 'I3D'
+    modelName = 'STP'
     if modelName == 'I3D':
       model = I3D_model.InceptionI3d(num_classes=num_classes, in_channels=3)
       size = (240, 284)
@@ -60,6 +60,10 @@ def main():
       model = R3D_model.R3DClassifier(num_classes=num_classes, layer_sizes=(3, 4, 6, 3))
       size = (171, 128)
       crop_size = 112
+    elif modelName == 'STP':
+      model = STP_model.STP(num_classes=num_classes, in_channels=3)
+      size = (240, 284)
+      crop_size = 224
 
     checkpoint = torch.load('./models/I3D-ferryboat4_epoch-199.pth.tar', map_location=lambda storage, loc: storage)
     model_dict = model.state_dict()
@@ -89,7 +93,6 @@ def main():
                 class_name = name.split('_')[1]
                 video = './ferryboat/' + class_name + "/" + name + '.avi'
                 clip = []
-                print(video)
                 cap = cv2.VideoCapture(video)
                 retaining = True
                 while retaining:
@@ -108,9 +111,11 @@ def main():
                         inputs = torch.from_numpy(inputs)
                         inputs = torch.autograd.Variable(inputs, requires_grad=False).to(device)
                         with torch.no_grad():
-                            outputs, index = model.forward(inputs)
+                            if modelName == 'STP':
+                                outputs, index = model.forward(inputs)
+                            else:
+                                outputs = model.forward(inputs)
                         iii = index.cpu().data
-                        print(iii)
                         probs = torch.nn.Softmax(dim=1)(outputs)
                         label = torch.max(probs, 1)[1].detach().cpu().numpy()[0]
                         if modelName == 'I3D':
@@ -120,9 +125,9 @@ def main():
 
                         if str(pre) == str(class_name):
                             l_names[str(class_name) + '1'] = l_names[str(class_name)+ '1'] + 1
-                        elif str(pre) == 'Ne' and str(class_name) == 'Neg':
+                        elif str(class_name) == 'Neg':
                             l_names[str(class_name) + '1'] = l_names[str(class_name)+ '1'] + 1
-                        elif str(pre) == 'Traffi' and str(class_name) == 'Traffic':
+                        elif str(class_name) == 'Traffic':
                             l_names[str(class_name) + '1'] = l_names[str(class_name)+ '1'] + 1
 
                         clip.pop(0)
